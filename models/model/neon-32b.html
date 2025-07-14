@@ -1,0 +1,119 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<HTML>
+<HEAD>
+    <TITLE>ALLURA.MOE - GLM-4-32B-0414 Neon v2</TITLE>
+    <META NAME="description" CONTENT="GLM-4-32B-0414 Neon v2 - 32B RP finetune with personality and variety">
+    <META CONTENT="text/html;charset=utf-8" HTTP-EQUIV="Content-Type">
+    <META CONTENT="utf-8" HTTP-EQUIV="encoding">
+    <LINK REL="stylesheet" HREF="../../style.css" TYPE="text/css">
+</HEAD>
+
+<BODY BGCOLOR="#000033" TEXT="#FFFFFF" LINK="#FF69B4" VLINK="#FF1493" ALINK="#FFB6C1">
+
+<TABLE WIDTH="100%" BORDER="0" CELLPADDING="0" CELLSPACING="0">
+<TR>
+<TD ALIGN="center">
+
+<TABLE WIDTH="750" BORDER="0" CELLPADDING="0" CELLSPACING="0" BGCOLOR="#000066">
+<TR>
+<TD ALIGN="center" HEIGHT="80">
+    <FONT SIZE="+2" COLOR="#FFB6C1"><BLINK>🌈 GLM-4-32B-0414 Neon v2 🌈</BLINK></FONT><BR>
+    <FONT SIZE="-1">32B RP finetune with personality and variety</FONT>
+</TD>
+</TR>
+</TABLE>
+
+<TABLE WIDTH="750" BORDER="0" CELLPADDING="2" CELLSPACING="0" BGCOLOR="#330033">
+<TR>
+<TD ALIGN="center">
+    <A HREF="../../index.html"><< Back to Main</A> |
+    <A HREF="../index.html"><< Back to Models</A> |
+    <A HREF="https://huggingface.co/allura-org">Hugging Face</A> |
+    <A HREF="https://github.com/allura-org">GitHub</A>
+</TD>
+</TR>
+</TABLE>
+
+<TABLE WIDTH="750" BORDER="0" CELLPADDING="20" CELLSPACING="0" BGCOLOR="#330033">
+<TR>
+<TD>
+
+<TABLE WIDTH="100%" BORDER="1" CELLPADDING="15" CELLSPACING="0" BORDERCOLOR="#FF69B4" BGCOLOR="#440033">
+<TR>
+<TD>
+    <FONT SIZE="+1" COLOR="#FFB6C1"><B>GLM-4-32B-0414 Neon v2</B></FONT><BR>
+    <FONT SIZE="-1" COLOR="#FF69B4">Base Model: THUDM/GLM-4-32B-0414</FONT><BR>
+    <FONT SIZE="-1" COLOR="#FF69B4">by <A HREF="../by-author.html#auri">Auri/Aurorae</A></FONT><BR><BR>
+    
+    <B>Description:</B> RP finetune of GLM-4-32B-0414. Feels nice, lots of personality, lots of variety, if bit quirky sometimes. Pretty smart, but sometimes plays dumb for a swipe, just let it be itself. Nice prose, not too Claude-ish or Gemini-ish. Bit of structural repetitions happen sometimes, but that's how modern LLMs are so ¯\_(ツ)_/¯. Seems to like JSON formatted system prompts.<BR><BR>
+    
+    <B>Use Cases:</B><BR>
+    • Character roleplay<BR>
+    • Creative writing<BR>
+    • Story generation<BR>
+    • Interactive fiction<BR><BR>
+    
+    <B>Training Details:</B><BR>
+    • 77M tokens of synthetic RP and short story data<BR>
+    • 1 epoch training<BR>
+    • 28 hours on 4xRTX 3090 (provided by OwenArli)<BR>
+    • QLoRA + CCE with sequence parallelism<BR><BR>
+    
+    <B>Links:</B><BR>
+    • <A HREF="https://huggingface.co/allura-org/GLM4-32B-Neon-v2">Huggingface (Full Weights)</A><BR>
+    • <A HREF="https://huggingface.co/bartowski/allura-org_GLM4-32B-Neon-v2-GGUF">GGUF Quantizations</A><BR><BR>
+    
+    <B>Usage:</B><BR>
+    <B>Format:</B> GLM4 instruct formatting<BR>
+    <B>Template:</B><BR>
+    <FONT SIZE="-1" COLOR="#CCCCCC">
+    [gMASK]&lt;sop&gt;&lt;|system|&gt;<BR>
+    {system_prompt}&lt;|user|&gt;<BR>
+    {prompt}&lt;|assistant|&gt;
+    </FONT><BR><BR>
+    
+    <B>Recommended Samplers:</B><BR>
+    • Temperature: 1.0<BR>
+    • Min-P: 0.1<BR>
+    • Repetition Penalty: 1.03<BR><BR>
+    
+    <B>Backend Notes:</B><BR>
+    • <B>KoboldCPP:</B> Use latest version + `--overridekv glm4.rope.dimension_count=int:64`<BR>
+    • <B>vLLM:</B> Works OOTB on vLLM >= 0.8.5<BR>
+    • <B>EXL3:</B> Should work out of the box<BR>
+    • <B>llama.cpp:</B> Latest versions support GGUFs OOTB<BR><BR>
+    
+    <B>Special Thanks:</B><BR>
+    • OwenArli for compute and tuning help<BR>
+    • ArliAI for collaboration<BR>
+    • Artus for free inference<BR>
+    • BeaverAI community for feedback
+</TD>
+</TR>
+</TABLE>
+
+<BR><BR>
+
+<TABLE WIDTH="100%" BORDER="0" CELLPADDING="10" CELLSPACING="0" BGCOLOR="#440033">
+<TR>
+<TD ALIGN="center">
+    <FONT SIZE="-1">
+    <A HREF="../index.html">← Back to Model Archive</A> | 
+    <A HREF="../by-author.html">Browse by Author</A> | 
+    <A HREF="../by-series.html">Browse by Series</A>
+    </FONT>
+</TD>
+</TR>
+</TABLE>
+
+</TD>
+</TR>
+</TABLE>
+
+</TD>
+</TR>
+</TABLE>
+
+</BODY>
+</HTML>
