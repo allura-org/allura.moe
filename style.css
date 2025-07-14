@@ -1,0 +1,150 @@
+/* ALLURA.MOE - Classic CSS1 Stylesheet */
+
+BODY {
+    font-family: "Comic Sans MS", "Arial", sans-serif;
+    background-color: #000033;
+    color: #FFFFFF;
+    margin: 0;
+    padding: 0;
+    background-image: url('data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7');
+}
+
+A:link {
+    color: #FF69B4;
+    text-decoration: underline;
+}
+
+A:visited {
+    color: #FF1493;
+    text-decoration: underline;
+}
+
+A:hover {
+    color: #FFB6C1;
+    background-color: #330033;
+    text-decoration: none;
+}
+
+A:active {
+    color: #FFB6C1;
+    text-decoration: none;
+}
+
+TABLE {
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+TD {
+    font-family: "Comic Sans MS", "Arial", sans-serif;
+    font-size: 12pt;
+}
+
+/* Blinking text for headers */
+BLINK {
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+/* Scrollbar styling (IE only) */
+BODY {
+    scrollbar-face-color: #FF69B4;
+    scrollbar-shadow-color: #FF1493;
+    scrollbar-highlight-color: #FFB6C1;
+    scrollbar-3dlight-color: #FFB6C1;
+    scrollbar-darkshadow-color: #330033;
+    scrollbar-track-color: #000033;
+    scrollbar-arrow-color: #FFFFFF;
+}
+
+/* Form styling */
+INPUT, TEXTAREA, SELECT {
+    background-color: #330033;
+    color: #FFFFFF;
+    border: 1px solid #FF69B4;
+    font-family: "Comic Sans MS", "Arial", sans-serif;
+}
+
+INPUT[type="submit"], INPUT[type="button"] {
+    background-color: #FF69B4;
+    color: #000033;
+    border: 2px outset #FF1493;
+    font-weight: bold;
+}
+
+INPUT[type="submit"]:hover, INPUT[type="button"]:hover {
+    background-color: #FFB6C1;
+    border: 2px inset #FF1493;
+}
+
+/* Marquee styling */
+MARQUEE {
+    background-color: #330044;
+    color: #FFB6C1;
+    font-weight: bold;
+}
+
+/* Horizontal rule styling */
+HR {
+    border: none;
+    height: 2px;
+    background-color: #FF69B4;
+    color: #FF69B4;
+}
+
+/* Image borders */
+IMG {
+    border: 2px solid #FF69B4;
+}
+
+/* Center alignment class */
+.center {
+    text-align: center;
+}
+
+/* Rainbow text effect */
+.rainbow {
+    background-image: linear-gradient(to right, violet, indigo, blue, green, yellow, orange, red);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+/* Under construction styling */
+.construction {
+    background-image: url('data:image/gif;base64,R0lGODlhEAAQAIAAAAAAAP///yH5BAEAAAEALAAAAAAQABAAAAIjjI+py+0Po5y02ouz3rz7D4biSJbmiabqyrbuC8fyTNf2jef6zvf+DwwKh8Si8YhMKpfMpvMJjUqn1Kr1is1qt9yu9wsOi8fksvmMTqvX7Lb7DY/L5/S6/Y7P6/f8vv8PGCg4SFhoeIiYqLjI2Oj4CBkpOUlZaXmJmam5ydnp+QkaKjpKWmp6ipqqusra6voKGys7S1tre4ubq7vL2+v7CxwsPExcbHyMnKy8zNzs/AwdLT1NXW19jZ2tvc3d7f0NHi4+Tl5ufo6err7O3u7+Dh8vP09fb3+Pn6+/z9/v/w8woMCBBAsaPIgwocKFDBs6fAgxosSJFCtavIgxo8aNHDt6/AgypMiRJEuaPIkypcqVLFu6fAkzpsyZNGvavIkzp86dPHv6/Ak0qNChRIsaPYo0qdKlTJs6fQo1qtSpVKtavYo1q9atXLt6/Qo2rNixZMuavf8KNqzYsWTLmj2LNq3atWzbun0LN67cuXTr2r2LN6/evXz7+v0LOLDgwYQLGz6MOLHixYwbO34MObLkyZQrW76MObPmzZw7e/4MOrTo0aRLmz6NOrXq1axbu34NO7bs2bRr276NO7fu3bx7+/4NPLjw4cSLGz+OPLny5cybO38OPbr06dSrW7+OPbv27dy7e/8OPLjw4cSLGz+OPLny5cybO38OPbr06dSrW7+OPbv27dy7e/8OPLjw4cSLGz+OPLny5cybO38OPbr06dSrW7+OPbv27dy7e/8OPLjw4cSLGz+OPLny5cybO38OPbr06dSrW7+OPbv27dy7e/8OPLjw4cSLGz+OPLny5cybO38OPbr06dSrW7+OPbv27dy7e/8OPLjw4cSLGz+OPLny5cybO38OPbr06dSrW7+OPbv27dy7e/8OPLjw4cSLGz+OPLny5cybO38OPbr06dSrW7+OPbv27dy7e/8OPLjw4cSLGz+OPLny5cybO38OPbr06dSrW7+OPbv27dy7e/8OPLjw4cSLGz+OPLny5cybO38OPbr06dSrW7+OPbv27dy7e/8OPLjw4cSLGz+OPLny5cybO38OPbr06dSrW7+OPbv27dy7e/8OPLjw4cSLGz+OPLny5cybO38OPbr06dSrW7+OPbv27dy7e/8OPLjw4cSLGz+OPLny5cybO38OPbr06dSrW7+OPbv27dy7e/8OPLjw4cSLGz+OPLny5cybO38OPbr06dSrW7+OPbv27dy7e/8OPLjw4cSLGz+OPLny5cybO38OPbr06dSrW7+OPbv27dy7e/8OPLjw4cSLGz+OPLny5cybO38OPbr06dSrW7+OPbv27dy7e/8OPLjw4cSLGz+OPLny5cybO38OPbr06dSrW7+OPbv27dy7e/8OPLjw4cSLGz+OPLny5cybO38OPbr06dSrW7+OPbv27dy7e/8OPLjw4cSLGz+OPLny5cybO38OPbr06dSrW7+OPbv27dy7e/8=');
+    background-repeat: repeat;
+    color: #FF0000;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Neon glow effect */
+.neon {
+    text-shadow: 0 0 10px #FF69B4, 0 0 20px #FF69B4, 0 0 30px #FF69B4;
+}
+
+/* Classic table styling */
+TABLE {
+    border: 1px solid #FF69B4;
+}
+
+TD {
+    padding: 5px;
+}
+
+/* Font size classes */
+.small { font-size: 10pt; }
+.normal { font-size: 12pt; }
+.large { font-size: 14pt; }
+.xlarge { font-size: 16pt; }
+
+/* Text alignment */
+.left { text-align: left; }
+.right { text-align: right; }
+.justify { text-align: justify; }
