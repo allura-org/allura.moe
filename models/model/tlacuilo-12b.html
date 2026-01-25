@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<HTML>
+<HEAD>
+    <TITLE>ALLURA.MOE - Tlacuilo-12B</TITLE>
+    <META NAME="description" CONTENT="Tlacuilo-12B - Creative writing model tuned in stages for better prose variety and stronger RP/adventure performance">
+    <META CONTENT="text/html;charset=utf-8" HTTP-EQUIV="Content-Type">
+    <META CONTENT="utf-8" HTTP-EQUIV="encoding">
+    <LINK REL="stylesheet" HREF="../../style.css" TYPE="text/css">
+</HEAD>
+
+<BODY BGCOLOR="#000033" TEXT="#FFFFFF" LINK="#FF69B4" VLINK="#FF1493" ALINK="#FFB6C1">
+
+<TABLE WIDTH="100%" BORDER="0" CELLPADDING="0" CELLSPACING="0">
+<TR>
+<TD ALIGN="center">
+
+<TABLE WIDTH="750" BORDER="0" CELLPADDING="0" CELLSPACING="0" BGCOLOR="#000066">
+<TR>
+<TD ALIGN="center" HEIGHT="80">
+    <FONT SIZE="+2" COLOR="#FFB6C1"><BLINK>📝 Tlacuilo-12B 📝</BLINK></FONT><BR>
+    <FONT SIZE="-1">Creative writing model that holds up for RP/adventure</FONT>
+</TD>
+</TR>
+</TABLE>
+
+<TABLE WIDTH="750" BORDER="0" CELLPADDING="2" CELLSPACING="0" BGCOLOR="#330033">
+<TR>
+<TD ALIGN="center">
+    <A HREF="../../index.html"><< Back to Main</A> |
+    <A HREF="../index.html"><< Back to Models</A> |
+    <A HREF="https://huggingface.co/allura-org">Hugging Face</A> |
+    <A HREF="https://github.com/allura-org">GitHub</A>
+</TD>
+</TR>
+</TABLE>
+
+<TABLE WIDTH="750" BORDER="0" CELLPADDING="20" CELLSPACING="0" BGCOLOR="#330033">
+<TR>
+<TD>
+
+<TABLE WIDTH="100%" BORDER="1" CELLPADDING="15" CELLSPACING="0" BORDERCOLOR="#FF69B4" BGCOLOR="#440033">
+<TR>
+<TD>
+    <FONT SIZE="+1" COLOR="#FFB6C1"><B>Tlacuilo-12B</B></FONT><BR>
+    <FONT SIZE="-1" COLOR="#FF69B4">Base Model: LatitudeGames/Muse-12B (and mistralai/Mistral-Nemo-Base-2407 family)</FONT><BR>
+    <FONT SIZE="-1" COLOR="#FF69B4">by <A HREF="../by-author.html#toasty-pigeon">Toasty Pigeon</A></FONT><BR><BR>
+    
+    <B>Description:</B> A creative writing model tuned for more varied prose while also keeping (and improving) roleplay/adventure performance. Built by starting from Muse-12B and applying staged training: books → RP → a small instruct phase.<BR><BR>
+    
+    <B>Use Cases:</B><BR>
+    • Creative writing<BR>
+    • Roleplay<BR>
+    • Adventure / interactive fiction<BR><BR>
+    
+    <B>Links:</B><BR>
+    • <A HREF="https://huggingface.co/allura-org/Tlacuilo-12B">Huggingface (Full Weights)</A><BR><BR>
+    
+    <B>Usage:</B><BR>
+    • Chat template: ChatML (trained using Muse-12B formatting)<BR>
+    • Suggested sampler range:<BR>
+      - Temperature 1.0 / min_p 0.05<BR>
+      - Up to Temperature 1.3 / min_p 0.02 if you like it hotter<BR><BR>
+
+    <B>Training Notes:</B><BR>
+    • Stage 1: books (~28M tokens/epoch), QKV-only QLoRA, 32k context, 2 epochs, LR 1e-5<BR>
+    • Stage 2: RP (~4M tokens), QLoRA on o_proj + down_proj, 16k context, 1 epoch, LR 5e-6<BR>
+    • Stage 3: small instruct (koto-instruct-sft subset), all linear modules, 4k context, 1 epoch, LR 2e-6<BR><BR>
+
+    <B>Chat Template:</B><BR>
+    • ChatML
+</TD>
+</TR>
+</TABLE>
+
+<BR><BR>
+
+<TABLE WIDTH="100%" BORDER="0" CELLPADDING="10" CELLSPACING="0" BGCOLOR="#440033">
+<TR>
+<TD ALIGN="center">
+    <FONT SIZE="-1">
+    <A HREF="../index.html">← Back to Model Archive</A> | 
+    <A HREF="../by-author.html">Browse by Author</A> | 
+    <A HREF="../by-series.html#mistral-nemo">Browse by Series</A>
+    </FONT>
+</TD>
+</TR>
+</TABLE>
+
+</TD>
+</TR>
+</TABLE>
+
+</TD>
+</TR>
+</TABLE>
+
+</BODY>
+</HTML>
