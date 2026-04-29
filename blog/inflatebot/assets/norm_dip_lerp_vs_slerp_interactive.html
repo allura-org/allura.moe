@@ -3,7 +3,27 @@
 <head>
 <meta charset="utf-8">
 <title>Norm dip: LERP versus SLERP</title>
+<script>
+(function() {
+  const params = new URLSearchParams(window.location.search);
+  let primary = null;
+  for (const [key, value] of params) {
+    if (key.endsWith('primaryColor')) {
+      primary = decodeURIComponent(value);
+      break;
+    }
+  }
+  if (!primary) {
+    primary = window.matchMedia('(prefers-color-scheme: dark)').matches ? '#e0e0e0' : '#1a1a1a';
+  }
+  const root = document.documentElement;
+  root.style.setProperty('--primary', primary);
+  root.style.setProperty('--color-text-primary', primary);
+  root.style.setProperty('--color-text-secondary', primary);
+})();
+</script>
 <style>
+  body { margin: 0; }
   .ctrls { display: flex; flex-direction: column; gap: 10px; padding: 0 16px; margin-top: 8px; }
   .row { display: flex; align-items: center; gap: 12px; font-size: 13px; color: var(--primary); }
   .row label { min-width: 56px; }
@@ -14,6 +34,7 @@
   .sw { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
   .sw-l { background: #D85A30; }
   .sw-s { background: #1D9E75; }
+  .th, .ts { fill: var(--primary); }
 </style>
 </head>
 <body>
@@ -22,17 +43,17 @@
   <title>Norm dip: LERP versus SLERP</title>
   <desc>Two unit vectors X and Y on a circle. The chord between them (LERP) has a midpoint inside the circle with reduced magnitude. The arc between them (SLERP) stays on the circle.</desc>
 
-  <circle cx="340" cy="180" r="150" fill="none" stroke="var(--color-border-secondary)" stroke-width="1" stroke-dasharray="3 3"/>
+  <circle cx="340" cy="180" r="150" fill="none" stroke="var(--primary)" stroke-opacity="0.3" stroke-width="1" stroke-dasharray="3 3"/>
 
-  <circle cx="340" cy="180" r="3" fill="var(--color-text-primary)"/>
+  <circle cx="340" cy="180" r="3" fill="var(--primary)"/>
   <text class="ts" x="332" y="198" text-anchor="end">0</text>
 
-  <line x1="340" y1="180" x2="490" y2="180" stroke="var(--color-text-primary)" stroke-width="1.5"/>
-  <circle cx="490" cy="180" r="4" fill="var(--color-text-primary)"/>
+  <line x1="340" y1="180" x2="490" y2="180" stroke="var(--primary)" stroke-width="1.5"/>
+  <circle cx="490" cy="180" r="4" fill="var(--primary)"/>
   <text class="th" x="500" y="184" dominant-baseline="central">X</text>
 
-  <line id="y-ln" x1="340" y1="180" x2="340" y2="30" stroke="var(--color-text-primary)" stroke-width="1.5"/>
-  <circle id="y-dot" cx="340" cy="30" r="4" fill="var(--color-text-primary)"/>
+  <line id="y-ln" x1="340" y1="180" x2="340" y2="30" stroke="var(--primary)" stroke-width="1.5"/>
+  <circle id="y-dot" cx="340" cy="30" r="4" fill="var(--primary)"/>
   <text id="y-lbl" class="th" x="340" y="22" text-anchor="middle">Y</text>
 
   <line id="chord" x1="490" y1="180" x2="340" y2="30" stroke="#D85A30" stroke-width="2"/>
