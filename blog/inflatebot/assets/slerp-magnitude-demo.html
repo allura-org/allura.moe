@@ -1,0 +1,113 @@
+<style>
+  .ctrls { display: flex; flex-direction: column; gap: 10px; padding: 0 16px; margin-top: 8px; }
+  .row { display: flex; align-items: center; gap: 12px; font-size: 13px; color: var(--color-text-secondary); }
+  .row label { min-width: 56px; }
+  .row input[type=range] { flex: 1; }
+  .row .val { min-width: 48px; text-align: right; font-family: var(--font-mono); }
+  .out { display: flex; gap: 28px; font-size: 13px; padding: 0 16px; margin-top: 14px; font-family: var(--font-mono); color: var(--color-text-secondary); flex-wrap: wrap; }
+  .out span { display: inline-flex; align-items: center; gap: 8px; }
+  .sw { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+  .sw-l { background: #D85A30; }
+  .sw-s { background: #1D9E75; }
+</style>
+
+<svg width="100%" viewBox="0 0 680 360" role="img">
+  <title>Norm dip: LERP versus SLERP</title>
+  <desc>Two unit vectors X and Y on a circle. The chord between them (LERP) has a midpoint inside the circle with reduced magnitude. The arc between them (SLERP) stays on the circle.</desc>
+
+  <circle cx="340" cy="180" r="150" fill="none" stroke="var(--color-border-secondary)" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <circle cx="340" cy="180" r="3" fill="var(--color-text-primary)"/>
+  <text class="ts" x="332" y="198" text-anchor="end">0</text>
+
+  <line x1="340" y1="180" x2="490" y2="180" stroke="var(--color-text-primary)" stroke-width="1.5"/>
+  <circle cx="490" cy="180" r="4" fill="var(--color-text-primary)"/>
+  <text class="th" x="500" y="184" dominant-baseline="central">X</text>
+
+  <line id="y-ln" x1="340" y1="180" x2="340" y2="30" stroke="var(--color-text-primary)" stroke-width="1.5"/>
+  <circle id="y-dot" cx="340" cy="30" r="4" fill="var(--color-text-primary)"/>
+  <text id="y-lbl" class="th" x="340" y="22" text-anchor="middle">Y</text>
+
+  <line id="chord" x1="490" y1="180" x2="340" y2="30" stroke="#D85A30" stroke-width="2"/>
+  <path id="arc" d="M 490 180 A 150 150 0 0 0 340 30" fill="none" stroke="#1D9E75" stroke-width="2"/>
+
+  <line id="lerp-rad" x1="340" y1="180" x2="415" y2="105" stroke="#D85A30" stroke-width="1" stroke-dasharray="3 3"/>
+  <line id="slerp-rad" x1="340" y1="180" x2="446" y2="74" stroke="#1D9E75" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <circle id="lerp-pt" cx="415" cy="105" r="6" fill="#D85A30"/>
+  <circle id="slerp-pt" cx="446" cy="74" r="6" fill="#1D9E75"/>
+</svg>
+
+<div class="ctrls">
+  <div class="row">
+    <label>Angle θ</label>
+    <input type="range" id="ang" min="20" max="160" value="90" step="1">
+    <span class="val" id="ang-v">90°</span>
+  </div>
+  <div class="row">
+    <label>t</label>
+    <input type="range" id="tv" min="0" max="1" value="0.5" step="0.01">
+    <span class="val" id="tv-v">0.50</span>
+  </div>
+</div>
+
+<div class="out">
+  <span><span class="sw sw-l"></span>‖LERP(t)‖ = <span id="ln">0.707</span></span>
+  <span><span class="sw sw-s"></span>‖SLERP(t)‖ = <span id="sn">1.000</span></span>
+</div>
+
+<script>
+const cx = 340, cy = 180, r = 150;
+
+function upd() {
+  const angDeg = +document.getElementById('ang').value;
+  const t = +document.getElementById('tv').value;
+  const theta = angDeg * Math.PI / 180;
+
+  const yX = cx + r * Math.cos(theta);
+  const yY = cy - r * Math.sin(theta);
+
+  const lX = cx + (1 - t) * r + t * r * Math.cos(theta);
+  const lY = cy - t * r * Math.sin(theta);
+  const lNorm = Math.sqrt((lX - cx) ** 2 + (lY - cy) ** 2) / r;
+
+  const sAng = t * theta;
+  const sX = cx + r * Math.cos(sAng);
+  const sY = cy - r * Math.sin(sAng);
+
+  document.getElementById('ang-v').textContent = angDeg + '°';
+  document.getElementById('tv-v').textContent = t.toFixed(2);
+  document.getElementById('ln').textContent = lNorm.toFixed(3);
+
+  document.getElementById('y-ln').setAttribute('x2', yX);
+  document.getElementById('y-ln').setAttribute('y2', yY);
+  document.getElementById('y-dot').setAttribute('cx', yX);
+  document.getElementById('y-dot').setAttribute('cy', yY);
+
+  const lblR = r + 20;
+  const lblX = cx + lblR * Math.cos(theta);
+  const lblY = cy - lblR * Math.sin(theta);
+  document.getElementById('y-lbl').setAttribute('x', lblX);
+  document.getElementById('y-lbl').setAttribute('y', lblY + 5);
+
+  document.getElementById('chord').setAttribute('x2', yX);
+  document.getElementById('chord').setAttribute('y2', yY);
+
+  document.getElementById('arc').setAttribute('d',
+    `M ${cx + r} ${cy} A ${r} ${r} 0 0 0 ${yX.toFixed(2)} ${yY.toFixed(2)}`);
+
+  document.getElementById('lerp-pt').setAttribute('cx', lX);
+  document.getElementById('lerp-pt').setAttribute('cy', lY);
+  document.getElementById('lerp-rad').setAttribute('x2', lX);
+  document.getElementById('lerp-rad').setAttribute('y2', lY);
+
+  document.getElementById('slerp-pt').setAttribute('cx', sX);
+  document.getElementById('slerp-pt').setAttribute('cy', sY);
+  document.getElementById('slerp-rad').setAttribute('x2', sX);
+  document.getElementById('slerp-rad').setAttribute('y2', sY);
+}
+
+document.getElementById('ang').addEventListener('input', upd);
+document.getElementById('tv').addEventListener('input', upd);
+upd();
+</script>
