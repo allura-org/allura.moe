@@ -9,6 +9,10 @@
   const bg = params.get('parts.page.embed.ctx.bgColor');
   const primary = params.get('parts.page.embed.ctx.primaryColor');
   const mode = params.get('parts.page.embed.ctx.mode');
+  // Speculative — Leaflet doesn't send these yet (as of components/Blocks/EmbedBlock.tsx).
+  // If they ship them following the existing param pattern, we'll pick them up.
+  const bodyFont = params.get('parts.page.embed.ctx.bodyFont');
+  const headingFont = params.get('parts.page.embed.ctx.headingFont');
   const root = document.documentElement;
 
   if (bg && primary) {
@@ -17,8 +21,24 @@
     root.style.setProperty('--color-text-primary', primary);
     root.style.setProperty('--color-text-secondary', primary);
     if (mode) root.dataset.embedMode = mode;
+
+    if (bodyFont || headingFont) {
+      // Match Leaflet's font loading pattern from FontLoader.tsx
+      const families = [bodyFont, headingFont].filter(Boolean)
+        .map(id => id.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()))
+        .map(name => name.replace(/ /g, '+'));
+      if (families.length) {
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = `https://fonts.googleapis.com/css2?${families.map(f => `family=${f}`).join('&')}&display=swap`;
+        document.head.appendChild(link);
+      }
+      if (bodyFont) root.style.setProperty('--font-body',
+        `"${bodyFont.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase())}", system-ui, sans-serif`);
+      if (headingFont) root.style.setProperty('--font-heading',
+        `"${headingFont.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase())}", var(--font-body)`);
+    }
   } else {
-    // Distinct fallback so "is this working?" becomes a glance
     root.style.setProperty('--bg', 'transparent');
     root.style.setProperty('--primary', '#888');
     root.style.setProperty('--color-text-primary', '#888');
