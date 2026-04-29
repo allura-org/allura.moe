@@ -5,21 +5,38 @@
 <title>Norm dip: LERP versus SLERP</title>
 <script>
 (function() {
-  const params = new URLSearchParams(window.location.search);
-  let primary = null;
-  for (const [key, value] of params) {
-    if (key.endsWith('primaryColor')) {
-      primary = decodeURIComponent(value);
-      break;
-    }
-  }
-  if (!primary) {
-    primary = window.matchMedia('(prefers-color-scheme: dark)').matches ? '#e0e0e0' : '#1a1a1a';
-  }
+  const params = new URLSearchParams(location.search);
+  const bg = params.get('parts.page.embed.ctx.bgColor');
+  const primary = params.get('parts.page.embed.ctx.primaryColor');
+  const mode = params.get('parts.page.embed.ctx.mode');
   const root = document.documentElement;
-  root.style.setProperty('--primary', primary);
-  root.style.setProperty('--color-text-primary', primary);
-  root.style.setProperty('--color-text-secondary', primary);
+
+  if (bg && primary) {
+    root.style.setProperty('--bg', bg);
+    root.style.setProperty('--primary', primary);
+    root.style.setProperty('--color-text-primary', primary);
+    root.style.setProperty('--color-text-secondary', primary);
+    if (mode) root.dataset.embedMode = mode;
+  } else {
+    // Distinct fallback so "is this working?" becomes a glance
+    root.style.setProperty('--bg', 'transparent');
+    root.style.setProperty('--primary', '#888');
+    root.style.setProperty('--color-text-primary', '#888');
+    root.style.setProperty('--color-text-secondary', '#888');
+    root.style.outline = '2px dashed magenta';
+    root.style.outlineOffset = '-4px';
+    addEventListener('DOMContentLoaded', () => {
+      const pill = document.createElement('div');
+      pill.textContent = 'preview · no leaflet ctx';
+      pill.style.cssText =
+        'position:fixed;top:6px;right:6px;background:magenta;color:white;' +
+        'font:11px/1 monospace;padding:3px 6px;border-radius:3px;' +
+        'z-index:99999;pointer-events:none;';
+      document.body.appendChild(pill);
+    });
+    console.warn('[leaflet-embed] No host context. URL params:',
+      Object.fromEntries(params.entries()));
+  }
 })();
 </script>
 <style>
