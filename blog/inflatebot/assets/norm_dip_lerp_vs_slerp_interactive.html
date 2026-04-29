@@ -21,23 +21,6 @@
     root.style.setProperty('--color-text-primary', primary);
     root.style.setProperty('--color-text-secondary', primary);
     if (mode) root.dataset.embedMode = mode;
-
-    if (bodyFont || headingFont) {
-      // Match Leaflet's font loading pattern from FontLoader.tsx
-      const families = [bodyFont, headingFont].filter(Boolean)
-        .map(id => id.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()))
-        .map(name => name.replace(/ /g, '+'));
-      if (families.length) {
-        const link = document.createElement('link');
-        link.rel = 'stylesheet';
-        link.href = `https://fonts.googleapis.com/css2?${families.map(f => `family=${f}`).join('&')}&display=swap`;
-        document.head.appendChild(link);
-      }
-      if (bodyFont) root.style.setProperty('--font-body',
-        `"${bodyFont.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase())}", system-ui, sans-serif`);
-      if (headingFont) root.style.setProperty('--font-heading',
-        `"${headingFont.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase())}", var(--font-body)`);
-    }
   } else {
     root.style.setProperty('--bg', 'transparent');
     root.style.setProperty('--primary', '#888');
@@ -57,10 +40,52 @@
     console.warn('[leaflet-embed] No host context. URL params:',
       Object.fromEntries(params.entries()));
   }
+
+  // Font handling runs independently of color ctx — Leaflet doesn't send these
+  // yet, but if it starts (following the Google-Fonts id pattern from src/fonts),
+  // we'll pick them up. Otherwise the CSS fallback chain resolves to Quattro.
+  if (bodyFont || headingFont) {
+    const idToFamily = id => id.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+    const families = [bodyFont, headingFont].filter(Boolean).map(idToFamily);
+    if (families.length) {
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = `https://fonts.googleapis.com/css2?${families.map(f => `family=${f.replace(/ /g, '+')}`).join('&')}&display=swap`;
+      document.head.appendChild(link);
+    }
+    if (bodyFont) root.style.setProperty('--font-body',
+      `"${idToFamily(bodyFont)}", var(--font-quattro)`);
+    if (headingFont) root.style.setProperty('--font-heading',
+      `"${idToFamily(headingFont)}", var(--font-body, var(--font-quattro))`);
+  }
 })();
 </script>
 <style>
-  body { margin: 0; }
+  /* Mirror Leaflet's default body font (app/layout.tsx loads these same files
+     via next/font/local under --font-quattro). Used as fallback when the host
+     doesn't pass a body/heading font down via embed ctx. */
+  @font-face {
+    font-family: 'iA Writer Quattro V';
+    font-style: normal;
+    font-display: swap;
+    src: url('https://leaflet.pub/fonts/iaw-quattro-vf.woff2') format('woff2-variations');
+  }
+  @font-face {
+    font-family: 'iA Writer Quattro V';
+    font-style: italic;
+    font-display: swap;
+    src: url('https://leaflet.pub/fonts/iaw-quattro-vf-Italic.woff2') format('woff2-variations');
+  }
+
+  :root {
+    --font-quattro: 'iA Writer Quattro V', ui-sans-serif, system-ui, sans-serif;
+    --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+
+  body {
+    margin: 0;
+    font-family: var(--font-body, var(--font-quattro));
+  }
   .ctrls { display: flex; flex-direction: column; gap: 10px; padding: 0 16px; margin-top: 8px; }
   .row { display: flex; align-items: center; gap: 12px; font-size: 13px; color: var(--primary); }
   .row label { min-width: 56px; }
@@ -71,7 +96,7 @@
   .sw { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
   .sw-l { background: #D85A30; }
   .sw-s { background: #1D9E75; }
-  .th, .ts { fill: var(--primary); }
+  .th, .ts { fill: var(--primary); font-family: var(--font-heading, var(--font-body, var(--font-quattro))); }
 </style>
 </head>
 <body>
